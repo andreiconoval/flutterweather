@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "624716034642",
+    "firebase_url": "https://flutter-weather-8fe5f.firebaseio.com",
+    "project_id": "flutter-weather-8fe5f",
+    "storage_bucket": "flutter-weather-8fe5f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:624716034642:android:de7f9ccdc09134bbd2258b",
+        "android_client_info": {
+          "package_name": "dev.andreiconoval.flutterweather"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "624716034642-8ed9bmq65g5a8k7ni51arhpl4327ehmq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD-tmyJUUK1maWT1HJ8idjGN9l7men5Jcg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "624716034642-8ed9bmq65g5a8k7ni51arhpl4327ehmq.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "624716034642-sqg00tg1fola1m6gfrlb99jo803hhspu.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "dev.andreiconoval.flutterweather"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
