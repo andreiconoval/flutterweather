@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutterweather/models/5_day_forecast.dart';
 import 'package:flutterweather/painters/color_palette.dart';
 import 'package:flutterweather/widgets/forecast_list.dart';
 import 'package:intl/intl.dart';
@@ -61,41 +62,32 @@ class _Home extends State<Home> {
                 }),
           ),
           Expanded(
-            child: Container(
-              child: PageView(
-                controller: PageController(viewportFraction: 0.9),
-                scrollDirection: Axis.horizontal,
-                pageSnapping: true,
-                children: <Widget>[
-                  Container(
-                    margin: const EdgeInsets.symmetric(horizontal: 8),
-                    color: Colors.white,
-                    child:  ContentScroll(),
-                  ),
-                   Container(
-                    margin: const EdgeInsets.symmetric(horizontal: 8),
-                    color: Colors.white,
-                    child:  ContentScroll(),
-                  ),
-                   Container(
-                    margin: const EdgeInsets.symmetric(horizontal: 8),
-                    color: Colors.white,
-                    child:  ContentScroll(),
-                  ),
-                    Container(
-                    margin: const EdgeInsets.symmetric(horizontal: 8),
-                    color: Colors.white,
-                    child:  ContentScroll(),
-                  ),
-                    Container(
-                    margin: const EdgeInsets.symmetric(horizontal: 8),
-                    color: Colors.white,
-                    child:  ContentScroll(),
-                  ),
-                ],
-              ),
-            ),
-          ),
+              child: FutureBuilder<The5Dayforecast>(
+            future: fetchWeatherForecast('sss'),
+            builder: (context, snapshot) {
+              switch (snapshot.connectionState) {
+                case ConnectionState.done:
+                  if (snapshot.hasError)
+                    return new Text('Error: ${snapshot.error}');
+                  else if (snapshot.hasData)
+                    return Container(
+                      child: PageView(
+                        controller: PageController(viewportFraction: 0.9),
+                        scrollDirection: Axis.horizontal,
+                        pageSnapping: true,
+                        children: getForecastList(snapshot.data),
+                      ),
+                    );
+                  else
+                    return new Text('Has Data: ${snapshot.hasData}');
+                  break;
+
+                default:
+                  debugPrint("Snapshot " + snapshot.toString());
+                  return CircularProgressIndicator(); // also check your listWidget(snapshot) as it may return null.
+              }
+            },
+          )),
           //ContentScroll(),
         ]),
       ),

@@ -1,103 +1,63 @@
-
-
 import 'package:flutterweather/models/city.dart';
 import 'package:flutterweather/models/weather_models.dart';
 
 class The5Dayforecast {
-    String cod;
-    double message;
-    int cnt;
-    List<ListElement> list;
-    City city;
+  String cod;
+  num message;
+  num cnt;
+  List<ForecastItem> list;
+  City city;
 
-    The5Dayforecast({
-        this.cod,
-        this.message,
-        this.cnt,
-        this.list,
-        this.city,
-    });
+  The5Dayforecast({
+    this.cod,
+    this.message,
+    this.cnt,
+    this.list,
+    this.city,
+  });
+
+  The5Dayforecast.fromJson(Map<String, dynamic> json)
+      : cod = json['cod'],
+        message = json['message'],
+        cnt = json['cnt'],
+        list = ForecastItem.fromListJson(json['list']),
+        city = City.fromJson(json['city']);
 }
 
+class ForecastItem {
+  num dt;
+  Main main;
+  List<Weather> weather;
+  Clouds clouds;
+  Wind wind;
+  Sys sys;
+  DateTime dtTxt;
 
+  ForecastItem({
+    this.dt,
+    this.main,
+    this.weather,
+    this.clouds,
+    this.wind,
+    this.sys,
+    this.dtTxt,
+  });
 
-class ListElement {
-    int dt;
-    MainClass main;
-    List<Weather> weather;
-    Clouds clouds;
-    Wind wind;
-    Sys sys;
-    String dtTxt;
+  ForecastItem.fromJson(Map<String, dynamic> json)
+      : dt = json['dt'] as num,
+        main = Main.fromJson(json['main']),
+        weather = Weather.fromListJson(json['weather']),
+        clouds = Clouds.fromJson(json['clouds']),
+        wind = Wind.fromJson(json['wind']),
+        sys = Sys.fromJson(json['sys']),
+        dtTxt =DateTime.parse(json['dt_txt']);
 
-    ListElement({
-        this.dt,
-        this.main,
-        this.weather,
-        this.clouds,
-        this.wind,
-        this.sys,
-        this.dtTxt,
-    });
+  static List<ForecastItem> fromListJson(List<dynamic> jsons) {
+    List<ForecastItem> list = [];
+    if (jsons != null)
+      for (var i = 0; i < jsons.length; i++)
+        list.add(ForecastItem.fromJson(jsons[i]));
+
+    return list;
+  }
 }
-
-class Clouds {
-    int all;
-
-    Clouds({
-        this.all,
-    });
-}
-
-class MainClass {
-    double temp;
-    double tempMin;
-    double tempMax;
-    double pressure;
-    double seaLevel;
-    double grndLevel;
-    int humidity;
-    double tempKf;
-
-    MainClass({
-        this.temp,
-        this.tempMin,
-        this.tempMax,
-        this.pressure,
-        this.seaLevel,
-        this.grndLevel,
-        this.humidity,
-        this.tempKf,
-    });
-}
-
-class Sys {
-    Pod pod;
-
-    Sys({
-        this.pod,
-    });
-}
-
-enum Pod { D, N }
-
-class Weather {
-    int id;
-    MainEnum main;
-    Description description;
-    Icon icon;
-
-    Weather({
-        this.id,
-        this.main,
-        this.description,
-        this.icon,
-    });
-}
-
-enum Description { CLEAR_SKY, SCATTERED_CLOUDS, FEW_CLOUDS }
-
-enum Icon { THE_01_D, THE_01_N, THE_03_D, THE_02_D }
-
-enum MainEnum { CLEAR, CLOUDS }
-

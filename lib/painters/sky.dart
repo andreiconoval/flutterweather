@@ -11,6 +11,7 @@ import 'package:flutterweather/painters/color_palette.dart';
 import 'package:flutterweather/painters/texts.dart';
 import 'package:flutterweather/presentation/weather_icons_icons.dart';
 import 'package:flutterweather/singletons/widget_utils.dart';
+import 'package:flutterweather/utils/icons.dart';
 
 class Sky extends CustomPainter {
   static const Color sunSettopColor = const Color.fromARGB(255, 151, 81, 213);
@@ -18,8 +19,7 @@ class Sky extends CustomPainter {
       const Color.fromARGB(230, 252, 220, 119);
 
   static const Color sunTopColor = const Color.fromARGB(255, 54, 104, 227);
-  static const Color sunBottomColor =
-      const Color.fromARGB(230, 251, 247, 119);
+  static const Color sunBottomColor = const Color.fromARGB(230, 251, 247, 119);
 
   final ui.Image image;
 
@@ -27,13 +27,12 @@ class Sky extends CustomPainter {
 
   @override
   void paint(Canvas canvas, Size size) {
-    
     /// Sky config
     var rect = Offset.zero & size;
     var sky = LinearGradient(
       begin: Alignment.topCenter,
-      end: Alignment.bottomCenter, 
-      colors: ColorPallete.getSkyColors(), 
+      end: Alignment.bottomCenter,
+      colors: ColorPallete.getSkyColors(),
       tileMode: TileMode.clamp,
     );
 
@@ -64,8 +63,8 @@ class Sky extends CustomPainter {
     /// Draw Mountains
     canvas.drawImage(image, new Offset(0.0, 0.0), new Paint());
   }
-    var time = DateTime.fromMillisecondsSinceEpoch(1570768433 * 1000).toLocal();
 
+  var time = DateTime.fromMillisecondsSinceEpoch(1570768433 * 1000).toLocal();
 
   @override
   SemanticsBuilderCallback get semanticsBuilder {
@@ -137,8 +136,8 @@ FutureBuilder<ui.Image> pictureBuilder(CurrentWeather dayForecast) {
                       Positioned(
                         top: 55,
                         left: 10,
-                        child: Icon(WeatherIcons.wi_day_sunny,
-                            size: 64, color: Colors.white),
+                        child: getWheatherIcon(
+                            dayForecast.weather[0].id, Colors.white, 64),
                       ),
                     ]),
                   ],
