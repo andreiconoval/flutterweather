@@ -137,7 +137,7 @@ FutureBuilder<ui.Image> pictureBuilder(CurrentWeather dayForecast) {
                         top: 55,
                         left: 10,
                         child: getWheatherIcon(
-                            dayForecast.weather[0].id, Colors.white, 64),
+                            dayForecast.weather[0].id, Colors.white, 64, DateTime.now()),
                       ),
                     ]),
                   ],

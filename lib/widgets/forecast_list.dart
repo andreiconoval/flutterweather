@@ -7,11 +7,15 @@ import 'package:intl/intl.dart';
 List<Container> getForecastList(The5Dayforecast forecast) {
   List<Container> fList = [];
   try {
-    List<List<ForecastItem>> list = new List(5);
+    List<List<ForecastItem>> list = new List(6);
     var dtNow = DateTime.now();
 
     for (var i = 0; i < forecast.list.length - 1; i++) {
+ 
       int diffDays = forecast.list[i].dtTxt.difference(dtNow).inDays;
+      var tempDt = dtNow.add(Duration(days: diffDays));
+      bool isSameDay =  forecast.list[i].dtTxt.day == tempDt.day;
+      if(!isSameDay) diffDays +=1;
       if (diffDays < 5) {
         if (list[diffDays] == null) list[diffDays] = [];
         list[diffDays].add(forecast.list[i]);
@@ -81,11 +85,11 @@ class ContentScroll extends StatelessWidget {
     ];
     for (var i = 0; i < forecast.length; i++) {
       var tempFo = forecast[i];
-      String time = DateFormat('HH:00').format(tempFo.dtTxt).toString();
+      String time = DateFormat('HH:00 dd/MM').format(tempFo.dtTxt).toString();
 
       var tempTil = ListTile(
         leading: Container(
-            child: getWheatherIcon(tempFo.weather[0].id, Colors.purple, 70)),
+            child: getWheatherIcon(tempFo.weather[0].id, Colors.purple, 70, tempFo.dtTxt)),
         title: Text(
           time + ' ' + tempFo.weather[0].description,
           style: TextStyle(fontSize: 18),

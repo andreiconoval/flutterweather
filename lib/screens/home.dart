@@ -26,7 +26,7 @@ class _Home extends State<Home> {
         appBar: AppBar(
           backgroundColor: ColorPallete.getSkyColors()[0],
           elevation: 0.0,
-          title: Center(child: Text('Search city')),
+          title: Center(child: Text('Craiova')),
           actions: <Widget>[
             IconButton(
               icon: Icon(Icons.search),
