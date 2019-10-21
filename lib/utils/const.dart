@@ -1,5 +1,6 @@
 /// Assets paths
 const String CITIES_PATH = "assets/cities.json";
+const String USER_CONFIG = "assets/user_config.json";
 
 /// Symbols
 const String DEGREE_SYM = "°";

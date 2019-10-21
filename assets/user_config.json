@@ -1,0 +1,31 @@
+{
+  "defaultCity" : {
+        "id": 680332,
+        "name": "Craiova",
+        "country": "RO",
+        "coord": {
+          "lon": 23.799999,
+          "lat": 44.316669
+        }
+      },
+    "searchedCities": [
+        {
+            "id": 664648,
+            "name": "Trei Movile",
+            "country": "RO",
+            "coord": {
+              "lon": 26.25,
+              "lat": 47.633331
+            }
+          },
+          {
+            "id": 673673,
+            "name": "Matei Voevod",
+            "country": "RO",
+            "coord": {
+              "lon": 25.450001,
+              "lat": 44.933331
+            }
+          }
+    ]
+}

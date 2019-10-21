@@ -12,7 +12,20 @@ class City {
       : id = json['id'],
         name = json['name'],
         country = json['country'],
-        coord = Coord.fromJson(json['coord']);
+        coord = json['coord'] != null ? Coord.fromJson(json['coord']) : null;
+
+  List<City> fromListJson(List<dynamic> jsons) {
+    List<City> cities = [];
+
+    try {
+      for (var i = 0; i < jsons.length; i++)
+        cities.add(City.fromJson(jsons[i]));
+    } catch (e) {
+      return null;
+    }
+
+    return cities;
+  }
 
   Map<String, dynamic> toJson() => {
         'id': id,

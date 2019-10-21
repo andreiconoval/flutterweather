@@ -15,8 +15,12 @@ Future<http.Response> fetchData(String fullUrl) async {
 }
 
 Future<CurrentWeather> fetchCurrentWeather(String fullCityName) async {
-  final response = await http
-      .get(OWM_WEATHER_URL + 'q=Craiova' + '&' + OWM_APPID + '&units=metric');
+  final response = await http.get(OWM_WEATHER_URL +
+      'q=' +
+      fullCityName +
+      '&' +
+      OWM_APPID +
+      '&units=metric');
 
   if (response.statusCode == 200) {
     // If the call to the server was successful, parse the JSON.
@@ -28,8 +32,12 @@ Future<CurrentWeather> fetchCurrentWeather(String fullCityName) async {
 }
 
 Future<The5Dayforecast> fetchWeatherForecast(String fullCityName) async {
-final response = await http
-      .get(OWM_FORECAST_5_3_URL + 'q=Craiova' + '&' + OWM_APPID + '&units=metric');
+  final response = await http.get(OWM_FORECAST_5_3_URL +
+      'q=' +
+      fullCityName +
+      '&' +
+      OWM_APPID +
+      '&units=metric');
 
   if (response.statusCode == 200) {
     // If the call to the server was successful, parse the JSON.

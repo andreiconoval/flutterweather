@@ -1,19 +1,15 @@
 import 'package:flutter/material.dart';
 
 import 'package:flutterweather/models/city.dart';
-import 'package:flutterweather/network.dart';
-import 'package:flutterweather/utils/assets_manager.dart';
 
 class DataSearch extends SearchDelegate<String> {
   List<City> cities = [];
   List<String> suggestionCities = [];
   String selectedCity;
 
-  _initiateListSearch() {
-    final rawCities = getCities();
-    print(rawCities);
-    rawCities.then((c) => c.forEach((json) => cities.add(City.fromJson(json))));
-  }
+  DataSearch({this.cities});
+
+
 
   _search(String query) {
     try {
@@ -31,19 +27,6 @@ class DataSearch extends SearchDelegate<String> {
     }
   }
 
-  Future<List<String>> _webSearch(String query) async {
-    try {
-      List<String> list = [];
-      var fetchedCities = await fetchCitiesByName(query);
-      if (fetchedCities.isNotEmpty)
-        list = fetchedCities.map((c) => c.localizedName + "/" + c.key).toList();
-      return list;
-      //.then((c) => c.forEach((f) => suggestionCities.add(f.localizedName)));
-    } catch (e) {
-      print('error' + e.toString());
-      return [];
-    }
-  }
 
   @override
   List<Widget> buildActions(BuildContext context) {
@@ -88,8 +71,7 @@ class DataSearch extends SearchDelegate<String> {
 
   @override
   Widget buildSuggestions(BuildContext context) {
-    if (cities.isEmpty) _initiateListSearch();
-
+    
     _search(query);
 
     // Show some searches matching something
