@@ -13,6 +13,6 @@ const String OWM_FORECAST_5_3_URL =
     
 const String OWM_APPID = "APPID=264aa52445be55a48e5052d743a0dd2b";
 
-const String ACCU_CITY_API =
-    "http://dataservice.accuweather.com/locations/v1/cities/autocomplete?";
-const String ACCU_APIKEY = "apikey=Wyx0GiVvbiKGwEEsvbbWZP6a8GUXnyGy";
+const String CITY_API =
+    "https://andreiconoval.pythonanywhere.com/api/cities/";
+

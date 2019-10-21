@@ -2,7 +2,7 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 
 import 'models/5_day_forecast.dart';
-import 'models/accu_city.dart';
+import 'models/city.dart';
 import 'models/current_weather.dart';
 import 'package:flutterweather/utils/const.dart';
 
@@ -48,15 +48,15 @@ Future<The5Dayforecast> fetchWeatherForecast(String fullCityName) async {
   }
 }
 
-Future<List<AccuCity>> fetchCitiesByName(String name) async {
+Future<List<City>> fetchCitiesByName(String name) async {
   try {
     if (name.isNotEmpty) {
       final response =
-          await http.get(ACCU_CITY_API + 'q=' + name + '&' + ACCU_APIKEY);
+          await http.get(CITY_API + name + '/' );
 
       if (response.statusCode == 200) {
         // If the call to the server was successful, parse the JSON.
-        return AccuCity.fromListJson(json.decode(response.body));
+        return City().fromListJson(json.decode(response.body));
       } else {
         // If that call was not successful, throw an error.
         throw Exception('Did not find anything');
