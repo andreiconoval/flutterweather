@@ -17,7 +17,7 @@ class ColorPallete {
   static List<Color> getSkyColors() {
     var time = DateTime.now();
     if (time.hour < 11 && time.hour > 7) return [_sunRiseTopColor,_sunRiseBottomColor];
-    else if (time.hour > 20 && time.hour < 7) return [_sunSetTopColor,_sunSetBottomColor];
+    else if (time.hour >= 20 && time.hour <= 7) return [_sunSetTopColor,_sunSetBottomColor];
 
     return [_sunTopColor,_sunBottomColor];
   }

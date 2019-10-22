@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 
 import 'package:flutterweather/models/city.dart';
+import 'package:flutterweather/network.dart';
+import 'package:flutterweather/widgets/wf_future.dart';
+
+import 'cw_future.dart';
 
 class DataSearch extends SearchDelegate<String> {
   List<City> cities = [];
@@ -8,8 +12,6 @@ class DataSearch extends SearchDelegate<String> {
   String selectedCity;
 
   DataSearch({this.cities});
-
-
 
   _search(String query) {
     try {
@@ -27,6 +29,19 @@ class DataSearch extends SearchDelegate<String> {
     }
   }
 
+  Future webSearch(String query) async {
+    try {
+      if (query.length >= 2) {
+        var searchedCities = await fetchCitiesByName(query);
+        suggestionCities = searchedCities
+            .where((c) => c.name.toLowerCase().contains(query.toLowerCase()))
+            .map((val) => val.name)
+            .toList();
+      }
+    } catch (e) {
+      print('error');
+    }
+  }
 
   @override
   List<Widget> buildActions(BuildContext context) {
@@ -59,22 +74,30 @@ class DataSearch extends SearchDelegate<String> {
   Widget buildResults(BuildContext context) {
     // Some result based on selection
     if (selectedCity == null) return Text('Fatality');
-    return Container(
-      height: 100,
-      width: 100,
-      child: Card(
-        color: Colors.red,
-        child: Center(child: Text(selectedCity)),
-      ),
-    );
+    return Column(children: [
+      Container(child: getCWFutureBuilder(selectedCity)),
+      Expanded(child: getWFutureBuilder(selectedCity)),
+      //ContentScroll(),
+    ]);
   }
 
   @override
   Widget buildSuggestions(BuildContext context) {
-    
     _search(query);
 
-    // Show some searches matching something
+    if (query.length > 2) {
+      webSearch(query);
+
+      return FutureBuilder(
+          future: webSearch(query),
+          builder: (context, snapshot) {
+            return ListView.builder(
+              itemBuilder: (context, index) =>
+                  _buildListItem(context, suggestionCities[index]),
+              itemCount: suggestionCities.length,
+            );
+          });
+    }
     return ListView.builder(
       itemBuilder: (context, index) =>
           _buildListItem(context, suggestionCities[index]),
@@ -104,7 +127,7 @@ class DataSearch extends SearchDelegate<String> {
             ),
             padding: EdgeInsets.all(10.0),
             child: Text(
-              "meteo",
+              "Set default",
               style: Theme.of(context).textTheme.display1,
             ),
           ),
