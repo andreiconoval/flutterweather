@@ -38,7 +38,10 @@ class _Home extends State<Home> {
                       IconButton(
                         icon: Icon(Icons.search),
                         onPressed: () {
-                          showSearch(context: context, delegate: DataSearch(cities: snapshot.data.searchedCities));
+                          showSearch(
+                              context: context,
+                              delegate: DataSearch(
+                                  cities: snapshot.data.searchedCities));
                         },
                       )
                     ],
@@ -46,11 +49,9 @@ class _Home extends State<Home> {
                   drawer: Drawer(),
                   body: Column(children: [
                     Container(
-                        child:
-                            getCWFutureBuilder(snapshot.data.defaultCity.name)),
+                        child: getCWFutureBuilder(snapshot.data.defaultCity)),
                     Expanded(
-                        child:
-                            getWFutureBuilder(snapshot.data.defaultCity.name)),
+                        child: getWFutureBuilder(snapshot.data.defaultCity)),
                     //ContentScroll(),
                   ]),
                 );

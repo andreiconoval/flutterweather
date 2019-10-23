@@ -1,4 +1,5 @@
 import 'dart:convert';
+
 import 'package:flutter/services.dart' show rootBundle;
 import 'package:flutterweather/models/user_config.dart';
 
@@ -34,8 +35,7 @@ Map<String, dynamic> _parseJosn(String response) {
     return null;
   }
   try {
-    final parsed =
-        json.decode(response);
+    final parsed = json.decode(response);
     return parsed;
   } catch (e) {
     print('parseJosn error:');
@@ -59,7 +59,7 @@ Future<UserConfig> loadUserConfig() async {
   try {
     Map<String, dynamic> userConfigJson;
     var ss = await _loadAssetAsString(USER_CONFIG);
-       userConfigJson = _parseJosn(ss);
+    userConfigJson = _parseJosn(ss);
     if (userConfigJson != null) {
       UserConfig userConfig = UserConfig().fromJson(userConfigJson);
       return userConfig;
@@ -69,3 +69,4 @@ Future<UserConfig> loadUserConfig() async {
     return null;
   }
 }
+

@@ -12,6 +12,7 @@ class WidgetUtils {
   double get screenHeight => _screenHeight;
   double get blockSizeHorizontal => _blockSizeHorizontal;
   double get blockSizeVertical => _blockSizeVertical;
+  
 
   WidgetUtils._internal();
 

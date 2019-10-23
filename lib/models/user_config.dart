@@ -17,4 +17,11 @@ class UserConfig {
 
     return userConfig;
   }
+
+Map<String, dynamic> toJson() => {
+
+        'defaultCity': defaultCity.toJson(),
+        'searchedCities': searchedCities.map((f) => f.toJson()).toList()
+      };
+
 }

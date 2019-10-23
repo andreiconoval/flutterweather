@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutterweather/models/5_day_forecast.dart';
+import 'package:flutterweather/models/city.dart';
 import 'package:flutterweather/widgets/forecast_list.dart';
 
 import '../network.dart';
 
-FutureBuilder<The5Dayforecast> getWFutureBuilder(String cityName) {
+FutureBuilder<The5Dayforecast> getWFutureBuilder(City city) {
   return FutureBuilder<The5Dayforecast>(
-    future: fetchWeatherForecast(cityName),
+    future: fetchWeatherForecast(city.name),
     builder: (wfcontext, wfsnapshot) {
       switch (wfsnapshot.connectionState) {
         case ConnectionState.done:

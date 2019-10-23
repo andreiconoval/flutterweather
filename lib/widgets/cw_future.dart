@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutterweather/models/city.dart';
 import 'package:flutterweather/models/current_weather.dart';
 import 'package:flutterweather/network.dart' as netw;
 import 'package:flutterweather/painters/sky.dart' as painter;
 
-FutureBuilder<CurrentWeather> getCWFutureBuilder(String cityName) {
+FutureBuilder<CurrentWeather> getCWFutureBuilder(City city) {
   return FutureBuilder<CurrentWeather>(
-      future: netw.fetchCurrentWeather(cityName),
+      future: netw.fetchCurrentWeather(city.name),
       builder: (cwContext, cwSnapshot) {
         switch (cwSnapshot.connectionState) {
           case ConnectionState.done:

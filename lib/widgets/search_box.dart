@@ -2,14 +2,15 @@ import 'package:flutter/material.dart';
 
 import 'package:flutterweather/models/city.dart';
 import 'package:flutterweather/network.dart';
+import 'package:flutterweather/utils/assets_manager.dart';
 import 'package:flutterweather/widgets/wf_future.dart';
 
 import 'cw_future.dart';
 
 class DataSearch extends SearchDelegate<String> {
   List<City> cities = [];
-  List<String> suggestionCities = [];
-  String selectedCity;
+  List<City> suggestionCities = [];
+  City selectedCity;
 
   DataSearch({this.cities});
 
@@ -20,9 +21,8 @@ class DataSearch extends SearchDelegate<String> {
             ? cities
                 .where(
                     (c) => c.name.toLowerCase().contains(query.toLowerCase()))
-                .map((val) => val.name)
                 .toList()
-            : cities.map((val) => val.name).toList();
+            : cities.toList();
       }
     } catch (e) {
       print('error' + e.toString());
@@ -35,7 +35,6 @@ class DataSearch extends SearchDelegate<String> {
         var searchedCities = await fetchCitiesByName(query);
         suggestionCities = searchedCities
             .where((c) => c.name.toLowerCase().contains(query.toLowerCase()))
-            .map((val) => val.name)
             .toList();
       }
     } catch (e) {
@@ -105,7 +104,7 @@ class DataSearch extends SearchDelegate<String> {
     );
   }
 
-  Widget _buildListItem(BuildContext context, String city) {
+  Widget _buildListItem(BuildContext context, City city) {
     if (city == null) return Text('nothing');
     return ListTile(
       onTap: () {
@@ -117,20 +116,26 @@ class DataSearch extends SearchDelegate<String> {
         children: [
           Expanded(
             child: Text(
-              city,
+              city.name,
               style: Theme.of(context).textTheme.headline,
             ),
           ),
-          Container(
-            decoration: const BoxDecoration(
-              color: Color(0xffddddff),
-            ),
-            padding: EdgeInsets.all(10.0),
+        
+          FlatButton(
+            color: Colors.blue,
+            textColor: Colors.white,
+            disabledColor: Colors.grey,
+            disabledTextColor: Colors.black,
+            padding: EdgeInsets.all(8.0),
+            splashColor: Colors.blueAccent,
+            onPressed: () {
+              
+            },
             child: Text(
-              "Set default",
-              style: Theme.of(context).textTheme.display1,
+              'Set Default',
+              style: TextStyle(fontSize: 20.0),
             ),
-          ),
+          )
         ],
       ),
     );

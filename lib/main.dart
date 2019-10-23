@@ -10,7 +10,7 @@ class WeatherApp extends StatelessWidget {
     //final size = MediaQuery.of(context).size;
     return MaterialApp(
       routes: {'': (BuildContext context) => Home()},
-       onGenerateRoute: (routeSettings) =>
+      onGenerateRoute: (routeSettings) =>
           NavigationUtils.onGenerateRoute(routeSettings),
     );
   }
