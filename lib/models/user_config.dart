@@ -1,27 +1,23 @@
-import 'package:flutterweather/models/city.dart';
-
 class UserConfig {
-  City defaultCity;
-  List<City> searchedCities;
+  String key;
+  String value;
+  DateTime lastChange;
 
-  UserConfig fromJson(Map<String, dynamic> json) {
-    UserConfig userConfig = UserConfig();
-    var defaultCity =
-        json['defaultCity'] != null ? City.fromJson(json['defaultCity']) : null;
-    var searchedCities =
-        json['searchedCities'] != null ? City().fromListJson(json['searchedCities']) : null;
-    if (defaultCity == null && searchedCities == null) return null;
+  UserConfig({
+    this.key,
+    this.value,
+    this.lastChange,
+  });
 
-    userConfig.defaultCity = defaultCity;
-    userConfig.searchedCities = searchedCities;
+  factory UserConfig.fromJson(Map<String, dynamic> json) => UserConfig(
+        key: json['key'],
+        value: json['value'],
+        lastChange: DateTime.parse(json['lastChange']),
+      );
 
-    return userConfig;
-  }
-
-Map<String, dynamic> toJson() => {
-
-        'defaultCity': defaultCity.toJson(),
-        'searchedCities': searchedCities.map((f) => f.toJson()).toList()
+  Map<String, dynamic> toJson() => {
+        'key': key,
+        'value': value,
+        'lastChange': lastChange.toIso8601String(),
       };
-
 }

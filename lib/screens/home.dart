@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:flutterweather/widgets/wf_future.dart';
 import 'package:intl/intl.dart';
 
-import 'package:flutterweather/models/user_config.dart';
 import 'package:flutterweather/painters/color_palette.dart';
-import 'package:flutterweather/utils/assets_manager.dart';
+import 'package:flutterweather/database/db_provider.dart';
 import 'package:flutterweather/widgets/cw_future.dart';
 import 'package:flutterweather/widgets/search_box.dart';
+import 'package:flutterweather/models/default_cities.dart';
+import 'package:flutterweather/widgets/wf_future.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -19,8 +19,8 @@ class _Home extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-        home: FutureBuilder<UserConfig>(
-      future: loadUserConfig(),
+        home: FutureBuilder<DefaultCities>(
+      future: DBProvier.db.getDefaultCities(),
       builder: (context, snapshot) {
         switch (snapshot.connectionState) {
           case ConnectionState.done:
@@ -55,8 +55,27 @@ class _Home extends State<Home> {
                     //ContentScroll(),
                   ]),
                 );
-              else
-                return new Text('Has Data: : ${snapshot.hasData}');
+              else {
+                return Scaffold(
+                  appBar: AppBar(
+                    backgroundColor: ColorPallete.getSkyColors()[0],
+                    elevation: 0.0,
+                    title: Center(child: Text('Please Set default city')),
+                    actions: <Widget>[
+                      IconButton(
+                        icon: Icon(Icons.search),
+                        onPressed: () {
+                          showSearch(
+                              context: context,
+                              delegate: DataSearch(
+                                  cities: []));
+                        },
+                      )
+                    ],
+                  ),
+                  body: Center(child: Text('Please select city')),
+                );
+              }
             }
             break;
 

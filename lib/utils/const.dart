@@ -16,3 +16,6 @@ const String OWM_APPID = "APPID=264aa52445be55a48e5052d743a0dd2b";
 const String CITY_API =
     "https://andreiconoval.pythonanywhere.com/api/cities/";
 
+
+/// DataBase key constant  value s
+const String DB_DEFAULT_CITIES_KEY = "default_cities";

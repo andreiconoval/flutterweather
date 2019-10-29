@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/services.dart' show rootBundle;
-import 'package:flutterweather/models/user_config.dart';
+import 'package:flutterweather/models/default_cities.dart';
 
 import 'const.dart';
 
@@ -55,13 +55,13 @@ Future<List<Map<String, Object>>> getCities() async {
   }
 }
 
-Future<UserConfig> loadUserConfig() async {
+Future<DefaultCities> loadUserConfig() async {
   try {
     Map<String, dynamic> userConfigJson;
     var ss = await _loadAssetAsString(USER_CONFIG);
     userConfigJson = _parseJosn(ss);
     if (userConfigJson != null) {
-      UserConfig userConfig = UserConfig().fromJson(userConfigJson);
+      DefaultCities userConfig = DefaultCities().fromJson(userConfigJson);
       return userConfig;
     }
     return null;

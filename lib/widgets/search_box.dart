@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutterweather/database/db_provider.dart';
 
 import 'package:flutterweather/models/city.dart';
+import 'package:flutterweather/models/default_cities.dart';
 import 'package:flutterweather/network.dart';
-import 'package:flutterweather/utils/assets_manager.dart';
 import 'package:flutterweather/widgets/wf_future.dart';
 
 import 'cw_future.dart';
@@ -120,7 +121,6 @@ class DataSearch extends SearchDelegate<String> {
               style: Theme.of(context).textTheme.headline,
             ),
           ),
-        
           FlatButton(
             color: Colors.blue,
             textColor: Colors.white,
@@ -129,7 +129,7 @@ class DataSearch extends SearchDelegate<String> {
             padding: EdgeInsets.all(8.0),
             splashColor: Colors.blueAccent,
             onPressed: () {
-              
+              setDefCity(city, context);
             },
             child: Text(
               'Set Default',
@@ -139,5 +139,24 @@ class DataSearch extends SearchDelegate<String> {
         ],
       ),
     );
+  }
+
+  setDefCity(City city, BuildContext context) async {
+    var oldDefCities = await DBProvier.db.getDefaultCities();
+    oldDefCities = oldDefCities == null ? DefaultCities(): oldDefCities;
+    if (oldDefCities.defaultCity == null ||
+        oldDefCities.searchedCities == null) {
+      oldDefCities.defaultCity = city;
+      oldDefCities.searchedCities = [];
+      oldDefCities.searchedCities.add(city);
+    } else {
+      oldDefCities.searchedCities.insert(0, city);
+      oldDefCities.defaultCity = city;
+      if (oldDefCities.searchedCities.length == 6)
+        oldDefCities.searchedCities.removeLast();
+    }
+
+    await DBProvier.db.addOrUpdateDefaultCities(oldDefCities);
+    close(context, null);
   }
 }

@@ -31,6 +31,6 @@ class City {
         'id': id,
         'name': name,
         'country': country,
-        'coord': coord.toJson(),
+        'coord': coord != null ? coord.toJson() : null,
       };
 }
